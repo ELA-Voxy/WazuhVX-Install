@@ -14,16 +14,28 @@ nodes:
   indexer:
     - name: node-1
       ip: "$SERVER_IP"
+    #- name: node-2
+    #  ip: "<indexer-node-ip>"
+    #- name: node-3
+    #  ip: "<indexer-node-ip>"
 
   # Wazuh server nodes
+  # If there is more than one Wazuh server
+  # node, each one must have a node_type
   server:
     - name: wazuh-1
       ip: "$SERVER_IP"
-      node_type: master
+    #  node_type: master
+    #- name: wazuh-2
+    #  ip: "<wazuh-manager-ip>"
+    #  node_type: worker
+    #- name: wazuh-3
+    #  ip: "<wazuh-manager-ip>"
+    #  node_type: worker
 
   # Wazuh dashboard nodes
   dashboard:
-    - name: dashboard-1
+    - name: dashboard
       ip: "$SERVER_IP"
 EOF
 
@@ -50,3 +62,17 @@ apt-get update
 # Install Indexer
 apt-get -y install wazuh-indexer
 
+# Indexer HTTPS
+NODE_NAME=node-1
+mkdir /etc/wazuh-indexer/certs
+tar -xf ./wazuh-certificates.tar -C /etc/wazuh-indexer/certs/ ./$NODE_NAME.pem ./$NODE_NAME-key.pem ./admin.pem ./admin-key.pem ./root-ca.pem
+mv -n /etc/wazuh-indexer/certs/$NODE_NAME.pem /etc/wazuh-indexer/certs/indexer.pem
+mv -n /etc/wazuh-indexer/certs/$NODE_NAME-key.pem /etc/wazuh-indexer/certs/indexer-key.pem
+chmod 500 /etc/wazuh-indexer/certs
+chmod 400 /etc/wazuh-indexer/certs/*
+chown -R wazuh-indexer:wazuh-indexer /etc/wazuh-indexer/certs
+
+# Indexer START
+systemctl daemon-reload
+systemctl enable wazuh-indexer
+systemctl start wazuh-indexer
