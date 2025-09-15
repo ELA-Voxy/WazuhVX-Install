@@ -134,7 +134,7 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-git clone -b v4.12.0 https://github.com/ELA-Voxy/wazuh-dashboard-VX.git && cd wazuh-dashboard/ && git checkout hotfix-v4.12.0
+git clone -b v4.12.0 https://github.com/ELA-Voxy/wazuh-dashboard-VX.git && cd wazuh-dashboard-VX/ && git checkout hotfix-v4.12.0
 nvm install $(cat .nvmrc)
 nvm use $(cat .nvmrc)
 npm install -g yarn
@@ -143,12 +143,14 @@ yarn build-platform --linux --skip-os-packages --release
 
 cd plugins/
 git clone -b v4.12.0 https://github.com/ELA-Voxy/wazuh-security-dashboards-plugin-VX.git
+mv wazuh-security-dashboards-plugin-VX/ wazuh-security-dashboards-plugin/
 cd wazuh-security-dashboards-plugin/
 yarn
 yarn build
 
 cd ../
 git clone -b v4.12.0 https://github.com/ELA-Voxy/wazuh-dashboard-plugins-VX.git
+mv wazuh-dashboard-plugins-VX/ wazuh-dashboard-plugins/
 cd wazuh-dashboard-plugins/
 nvm install $(cat .nvmrc)
 nvm use $(cat .nvmrc)
