@@ -40,7 +40,9 @@ yarn build
 cd ../../../
 mkdir packages
 cd packages
-zip -r -j ./dashboard-package.zip ../wazuh-dashboard/target/opensearch-dashboards-2.*.*-linux-x64.tar.gz
-zip -r -j ./security-package.zip ../wazuh-dashboard/plugins/wazuh-security-dashboards-plugin/build/security-dashboards-2.*.*.0.zip
-zip -r -j ./wazuh-package.zip ../wazuh-dashboard/plugins/wazuh-check-updates/build/wazuhCheckUpdates-2.*.*.zip ../wazuh-dashboard/plugins/main/build/wazuh-2.*.*.zip ../wazuh-dashboard/plugins/wazuh-core/build/wazuhCore-2.*.*.zip
+zip -r -j ./dashboard-package.zip ../wazuh-dashboard-VX/target/opensearch-dashboards-2.*.*-linux-x64.tar.gz
+zip -r -j ./security-package.zip ../wazuh-dashboard-VX/plugins/wazuh-security-dashboards-plugin/build/security-dashboards-2.*.*.0.zip
+zip -r -j ./wazuh-package.zip ../wazuh-dashboard-VX/plugins/wazuh-check-updates/build/wazuhCheckUpdates-2.*.*.zip ../wazuh-dashboard-VX/plugins/main/build/wazuh-2.*.*.zip ../wazuh-dashboard-VX/plugins/wazuh-core/build/wazuhCore-2.*.*.zip
 ls
+
+sudo bash ~/WazuhVX-Install//Dashboard/Debpackage.sh

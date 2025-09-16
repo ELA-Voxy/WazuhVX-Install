@@ -2,11 +2,11 @@
 # ROOT #
 ########
 
-sudo ./Wazuh/Wazuhinstall.sh
+sudo bash ./Wazuh/Wazuhinstall.sh
 
 ###########
 # NO-ROOT #
 ###########
 
 cd ..
-./WazuhVX-Install/Dashboard/Dashboardinstall.sh
+bash ./WazuhVX-Install/Dashboard/Dashboardinstall.sh
