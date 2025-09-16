@@ -23,6 +23,23 @@ chmod 500 /etc/wazuh-dashboard/certs
 chmod 400 /etc/wazuh-dashboard/certs/*
 chown -R wazuh-dashboard:wazuh-dashboard /etc/wazuh-dashboard/certs
 
+cat > /etc/wazuh-dashboard/opensearch_dashboards.yml <<EOF
+server.host: 0.0.0.0
+server.port: 443
+opensearch.hosts: https://192.168.201.129:9200
+opensearch.ssl.verificationMode: certificate
+#opensearch.username:
+#opensearch.password:
+opensearch.requestHeadersAllowlist: ["securitytenant","Authorization"]
+opensearch_security.multitenancy.enabled: false
+opensearch_security.readonly_mode.roles: ["kibana_read_only"]
+server.ssl.enabled: true
+server.ssl.key: "/etc/wazuh-dashboard/certs/dashboard-key.pem"
+server.ssl.certificate: "/etc/wazuh-dashboard/certs/dashboard.pem"
+opensearch.ssl.certificateAuthorities: ["/etc/wazuh-dashboard/certs/root-ca.pem"]
+uiSettings.overrides.defaultRoute: /app/wz-home
+EOF
+
 systemctl daemon-reload
 systemctl enable wazuh-dashboard
 systemctl start wazuh-dashboard
