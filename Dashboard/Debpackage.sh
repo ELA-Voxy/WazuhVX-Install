@@ -1,20 +1,31 @@
+# Copy prebuilt packages
 cp -r ../packages/ ~/packages/
 
+# Go to dashboard build tools
 cd ../wazuh-dashboard-VX/dev-tools/build-packages/
 
-./build-packages.sh --commit-sha 5cb6f9a0ed-4a0e79949-b0c6e09 -r 1 --deb -a file://$HOME/packages/wazuh-package.zip -s file://$HOME/packages/security-package.zip -b file://$HOME/packages/dashboard-package.zip
+# Build the dashboard .deb package
+./build-packages.sh --commit-sha 5cb6f9a0ed-4a0e79949-b0c6e09 -r 1 --deb \
+  -a file://$HOME/packages/wazuh-package.zip \
+  -s file://$HOME/packages/security-package.zip \
+  -b file://$HOME/packages/dashboard-package.zip
 
-cd ../wazuh-dashboard-VX/dev-tools/build-packages/output/
+# Go to build output
+cd output/
 
+# Install the generated dashboard package
 sudo dpkg -i wazuh-dashboard_4.12.0-1_amd64_5cb6f9a0ed-4a0e79949-b0c6e09.deb   
-sudo apt-get install -f
+sudo apt-get install -f   # fix dependencies if needed
 
+# Enable and start the dashboard service
 sudo systemctl enable wazuh-dashboard
 sudo systemctl start wazuh-dashboard
 sudo systemctl status wazuh-dashboard
 
+# Go back to installer folder
 cd ../../../../WazuhVX-Install
 
+# Prepare certificates for the dashboard
 mkdir /etc/wazuh-dashboard/certs
 tar -xf ./wazuh-certificates.tar -C /etc/wazuh-dashboard/certs/ ./node-1.pem ./node-1-key.pem ./root-ca.pem
 mv -n /etc/wazuh-dashboard/certs/node-1.pem /etc/wazuh-dashboard/certs/dashboard.pem
@@ -23,6 +34,7 @@ chmod 500 /etc/wazuh-dashboard/certs
 chmod 400 /etc/wazuh-dashboard/certs/*
 chown -R wazuh-dashboard:wazuh-dashboard /etc/wazuh-dashboard/certs
 
+# Dashboard config (OpenSearch connection + SSL setup)
 cat > /etc/wazuh-dashboard/opensearch_dashboards.yml <<EOF
 server.host: 0.0.0.0
 server.port: 443
@@ -40,6 +52,7 @@ opensearch.ssl.certificateAuthorities: ["/etc/wazuh-dashboard/certs/root-ca.pem"
 uiSettings.overrides.defaultRoute: /app/wz-home
 EOF
 
+# Reload and restart dashboard service
 systemctl daemon-reload
 systemctl enable wazuh-dashboard
 systemctl start wazuh-dashboard
