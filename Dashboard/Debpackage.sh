@@ -52,7 +52,14 @@ opensearch.ssl.certificateAuthorities: ["/etc/wazuh-dashboard/certs/root-ca.pem"
 uiSettings.overrides.defaultRoute: /app/wz-home
 EOF
 
+systemctl stop filebeat
+curl -so template.json https://raw.githubusercontent.com/wazuh/wazuh/v4.12.0/extensions/elasticsearch/7.x/wazuh-template.json
+curl -XPUT -k -u admin:admin 'https://127.0.0.1:9200/_template/wazuh' -H 'Content-Type: application/json' -d @template.json
+
 # Reload and restart dashboard service
 systemctl daemon-reload
 systemctl enable wazuh-dashboard
-systemctl start wazuh-dashboard
+systemctl restart filebeat
+systemctl restart wazuh-manager
+systemctl restart wazuh-indexer
+systemctl restart wazuh-dashboard
