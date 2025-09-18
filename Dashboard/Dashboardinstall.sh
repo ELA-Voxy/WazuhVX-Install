@@ -14,7 +14,7 @@ yarn osd bootstrap
 yarn build-platform --linux --skip-os-packages --release
 
 cd plugins/
-git clone -b v4.12.0 https://github.com/ELA-Voxy/wazuh-security-dashboards-plugin-VX.git
+git clone -b hotfix-v4.12.0 https://github.com/ELA-Voxy/wazuh-security-dashboards-plugin-VX.git
 mv wazuh-security-dashboards-plugin-VX/ wazuh-security-dashboards-plugin/
 cd wazuh-security-dashboards-plugin/
 yarn
