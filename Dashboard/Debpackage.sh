@@ -34,11 +34,13 @@ chmod 500 /etc/wazuh-dashboard/certs
 chmod 400 /etc/wazuh-dashboard/certs/*
 chown -R wazuh-dashboard:wazuh-dashboard /etc/wazuh-dashboard/certs
 
+IP=$(hostname -I | awk '{print $1}')
+
 # Dashboard config (OpenSearch connection + SSL setup)
 cat > /etc/wazuh-dashboard/opensearch_dashboards.yml <<EOF
 server.host: 0.0.0.0
 server.port: 443
-opensearch.hosts: https://192.168.201.129:9200
+opensearch.hosts: https://$IP:9200
 opensearch.ssl.verificationMode: certificate
 #opensearch.username:
 #opensearch.password:
