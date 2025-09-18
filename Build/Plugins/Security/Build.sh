@@ -39,5 +39,5 @@ yarn build
 
 cd ../../../packages
 zip -r -j ./security-package.zip ../wazuh-dashboard-VX/plugins/wazuh-security-dashboards-plugin/build/security-dashboards-2.*.*.0.zip
-zip -r -j ./wazuh-package.zip ../wazuh-dashboard-VX/plugins/wazuh-check-updates/build/wazuhCheckUpdates-2.*.*.zip ../wazuh-dashboard-VX/plugins/main/build/>
+zip -r -j ./wazuh-package.zip ../wazuh-dashboard/plugins/wazuh-check-updates/build/wazuhCheckUpdates-2.*.*.zip ../wazuh-dashboard/plugins/main/build/wazuh-2.*.*.zip ../wazuh-dashboard/plugins/wazuh-core/build/wazuhCore-2.*.*.zip
 sudo bash ../WazuhVX-Install/Build/Rebuild.sh
