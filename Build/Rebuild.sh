@@ -1,8 +1,11 @@
+apt remove wazuh-dashboard -y
+cd ..
+
 # Copy prebuilt packages
-cp -r ../packages/ ~/packages/
+cp -r ./packages/ ~/packages/
 
 # Go to dashboard build tools
-cd ../wazuh-dashboard-VX/dev-tools/build-packages/
+cd ./wazuh-dashboard-VX/dev-tools/build-packages/
 
 # Build the dashboard .deb package
 ./build-packages.sh --commit-sha 5cb6f9a0ed-4a0e79949-b0c6e09 -r 1 --deb \
@@ -14,7 +17,7 @@ cd ../wazuh-dashboard-VX/dev-tools/build-packages/
 cd output/
 
 # Install the generated dashboard package
-sudo dpkg -i wazuh-dashboard_4.12.0-1_amd64_5cb6f9a0ed-4a0e79949-b0c6e09.deb   
+sudo dpkg -i wazuh-dashboard_4.12.0-1_amd64_5cb6f9a0ed-4a0e79949-b0c6e09.deb
 sudo apt-get install -f   # fix dependencies if needed
 
 # Enable and start the dashboard service
