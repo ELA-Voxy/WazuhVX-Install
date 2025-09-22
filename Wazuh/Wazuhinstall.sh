@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Get script and config
-curl -sO https://packages.wazuh.com/4.12/wazuh-certs-tool.sh
-curl -sO https://packages.wazuh.com/4.12/config.yml
+curl -sO https://packages.wazuh.com/4.13/wazuh-certs-tool.sh
+curl -sO https://packages.wazuh.com/4.13/config.yml
 
 # Get Local IP
 SERVER_IP=$(hostname -I | awk '{print $1}')
@@ -100,7 +100,7 @@ systemctl start wazuh-manager
 
 # Init
 apt-get -y install filebeat zip
-curl -so /etc/filebeat/filebeat.yml https://packages.wazuh.com/4.12/tpl/wazuh/filebeat/filebeat.yml
+curl -so /etc/filebeat/filebeat.yml https://packages.wazuh.com/4.13/tpl/wazuh/filebeat/filebeat.yml
 sed -i "s/127.0.0.1/$SERVER_IP/" /etc/filebeat/filebeat.yml
 
 # Keystore and password
