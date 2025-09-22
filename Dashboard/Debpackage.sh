@@ -5,7 +5,7 @@ cp -r ../packages/ ~/packages/
 cd ../wazuh-dashboard-VX/dev-tools/build-packages/
 
 # Build the dashboard .deb package
-./build-packages.sh --commit-sha 5cb6f9a0ed-4a0e79949-b0c6e09 -r 1 --deb \
+./build-packages.sh --commit-sha 20fe390198-1eb4245ad-5857492 -r 1 --deb \
   -a file://$HOME/packages/wazuh-package.zip \
   -s file://$HOME/packages/security-package.zip \
   -b file://$HOME/packages/dashboard-package.zip
@@ -14,7 +14,7 @@ cd ../wazuh-dashboard-VX/dev-tools/build-packages/
 cd output/
 
 # Install the generated dashboard package
-sudo dpkg -i wazuh-dashboard_4.12.0-1_amd64_5cb6f9a0ed-4a0e79949-b0c6e09.deb   
+sudo dpkg -i wazuh-dashboard_4.13.0-1_amd64_20fe390198-1eb4245ad-5857492.deb
 sudo apt-get install -f   # fix dependencies if needed
 
 # Enable and start the dashboard service
@@ -55,7 +55,7 @@ uiSettings.overrides.defaultRoute: /app/wz-home
 EOF
 
 systemctl stop filebeat
-curl -so template.json https://raw.githubusercontent.com/wazuh/wazuh/v4.12.0/extensions/elasticsearch/7.x/wazuh-template.json
+curl -so template.json https://raw.githubusercontent.com/wazuh/wazuh/v4.13.0/extensions/elasticsearch/7.x/wazuh-template.json
 curl -XPUT -k -u admin:admin 'https://127.0.0.1:9200/_template/wazuh' -H 'Content-Type: application/json' -d @template.json
 
 # Reload and restart dashboard service
