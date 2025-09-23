@@ -50,7 +50,7 @@ rm -rf ./wazuh-certificates
 # INDEXER #
 ###########
 
-sudo bash ../Indexer/Indexerinstall.sh
+sudo bash ~/WazuhVX-Install/Indexer/Indexerinstall.sh
 
 # Indexer HTTPS
 NODE_NAME=node-1
@@ -88,4 +88,4 @@ systemctl start wazuh-manager
 # Filebeat #
 ############
 
-sudo bash ../Filebeat/Filebeatinstall.sh
+sudo bash ~/WazuhVX-Install/Filebeat/Filebeatinstall.sh
