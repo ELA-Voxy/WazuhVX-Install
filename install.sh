@@ -3,7 +3,6 @@
 ########
 
 sudo bash ./Wazuh/Wazuhinstall.sh
-sudo bash ./Manager/Managerinstall.sh
 
 ###########
 # NO-ROOT #
@@ -11,3 +10,9 @@ sudo bash ./Manager/Managerinstall.sh
 
 cd ..
 bash ./WazuhVX-Install/Dashboard/Dashboardinstall.sh
+
+#######
+# WIP #
+#######
+
+# sudo bash ./Manager/Managerinstall.sh

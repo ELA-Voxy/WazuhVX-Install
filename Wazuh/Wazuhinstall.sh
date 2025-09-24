@@ -50,7 +50,7 @@ rm -rf ./wazuh-certificates
 # INDEXER #
 ###########
 
-sudo bash ~/WazuhVX-Install/Indexer/Indexerinstall.sh
+sudo apt install wazuh-indexer
 
 # Indexer HTTPS
 NODE_NAME=node-1
