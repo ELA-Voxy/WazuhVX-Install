@@ -46,10 +46,16 @@ bash ./wazuh-certs-tool.sh -A
 tar -cvf ./wazuh-certificates.tar -C ./wazuh-certificates/ .
 rm -rf ./wazuh-certificates
 
+# Package needed
+apt-get install debconf adduser procps
+apt-get install gnupg apt-transport-https
+
 ###########
 # INDEXER #
 ###########
-
+curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | gpg --no-default-keyring --keyring gnupg-ring:/usr/share/keyrings/wazuh.gpg --import && chmod 644 /usr/share/keyrings/wazuh.gpg
+echo "deb [signed-by=/usr/share/keyrings/wazuh.gpg] https://packages.wazuh.com/4.x/apt/ stable main" | tee -a /etc/apt/sources.list.d/wazuh.list
+apt-get update
 sudo apt install wazuh-indexer
 
 # Indexer HTTPS
