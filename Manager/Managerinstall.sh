@@ -23,6 +23,5 @@ sudo chmod a+rwx wazuh-manager-dbg_4.13.0-wazuhvoxy_amd64_2f1a131.deb
 ls -all
 cp wazuh-manager_4.13.0-wazuhvoxy_amd64_2f1a131.deb $HOME/wazuh-VX/packages/output
 cp wazuh-manager-dbg_4.13.0-wazuhvoxy_amd64_2f1a131.deb $HOME/wazuh-VX/packages/output
-cd 
 sudo apt install ./wazuh-manager_4.13.0-wazuhvoxy_amd64_2f1a131.deb
 sudo apt install ./wazuh-manager-dbg_4.13.0-wazuhvoxy_amd64_2f1a131.deb
