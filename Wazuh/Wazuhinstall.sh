@@ -77,7 +77,8 @@ systemctl start wazuh-indexer
 # Manager #
 ###########
 
-apt-get -y install wazuh-manager
+# apt-get -y install wazuh-manager
+bash Manager/Managerinstall.sh
 
 # Starting Wazuh Server
 systemctl daemon-reload
