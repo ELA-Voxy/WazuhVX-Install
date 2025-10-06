@@ -1,5 +1,5 @@
 # Copy prebuilt packages
-cp -r ../packages/ ~/packages/
+cp -r ../packages/ ~/
 
 # Go to dashboard build tools
 cd ../wazuh-dashboard-VX/dev-tools/build-packages/
@@ -21,6 +21,8 @@ sudo apt-get install -f   # fix dependencies if needed
 sudo systemctl enable wazuh-dashboard
 sudo systemctl start wazuh-dashboard
 sudo systemctl status wazuh-dashboard
+
+sudo apt install zip -y
 
 # Go back to installer folder
 cd ../../../../WazuhVX-Install
