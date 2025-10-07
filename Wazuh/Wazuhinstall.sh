@@ -95,4 +95,4 @@ systemctl start wazuh-manager
 # Filebeat #
 ############
 
-sudo bash ~/WazuhVX-Install/Filebeat/Filebeatinstall.sh
+sudo bash ./Filebeat/Filebeatinstall.sh
