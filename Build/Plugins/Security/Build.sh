@@ -12,7 +12,7 @@ npm install -g yarn
 
 
 cd plugins/
-git clone -b hotfix-v4.12.0 https://github.com/ELA-Voxy/wazuh-security-dashboards-plugin-VX.git
+git clone -b hotfix-v4.13.0 https://github.com/ELA-Voxy/wazuh-security-dashboards-plugin-VX.git
 mv wazuh-security-dashboards-plugin-VX/ wazuh-security-dashboards-plugin/
 cd wazuh-security-dashboards-plugin/
 yarn
@@ -21,7 +21,7 @@ yarn build
 
 
 cd ../
-git clone -b v4.12.0 https://github.com/ELA-Voxy/wazuh-dashboard-plugins-VX.git
+git clone -b v4.13.0 https://github.com/ELA-Voxy/wazuh-dashboard-plugins-VX.git
 mv wazuh-dashboard-plugins-VX/ wazuh-dashboard-plugins/
 cd wazuh-dashboard-plugins/
 nvm install $(cat .nvmrc)
