@@ -1,4 +1,5 @@
 # Init
+SERVER_IP=$(hostname -I | awk '{print $1}')
 apt-get -y install filebeat zip
 curl -so /etc/filebeat/filebeat.yml https://packages.wazuh.com/4.13/tpl/wazuh/filebeat/filebeat.yml
 sed -i "s/127.0.0.1/$SERVER_IP/" /etc/filebeat/filebeat.yml

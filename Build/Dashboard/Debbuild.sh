@@ -12,5 +12,4 @@ cd ../wazuh-dashboard-VX/dev-tools/build-packages/
 
 # Go to build output
 cd output/
-
-ls -all
+cp -r * $HOME/VxPackage/
