@@ -53,11 +53,54 @@ apt-get install gnupg apt-transport-https -y
 ###########
 # INDEXER #
 ###########
-#curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | gpg --no-default-keyring --keyring gnupg-ring:/usr/share/keyrings/wazuh.gpg --import && chmod 644 /usr/share/keyrings/wazuh.gpg
-#echo "deb [signed-by=/usr/share/keyrings/wazuh.gpg] https://packages.wazuh.com/4.x/apt/ stable main" | tee -a /etc/apt/sources.list.d/wazuh.list
-#apt-get update
-#sudo apt install wazuh-indexer
 sudo bash ./Indexer/Indexerinstall.sh
+
+# WRITE IN /etc/wazuh-indexer/opensearch.yml
+cat > opensearch.yml <<EOF
+network.host: "$SERVER_IP"
+node.name: "node-1"
+cluster.initial_master_nodes:
+- "node-1"
+#- "node-2"
+#- "node-3"
+cluster.name: "wazuh-cluster"
+#discovery.seed_hosts:
+#  - "node-1-ip"
+#  - "node-2-ip"
+#  - "node-3-ip"
+node.max_local_storage_nodes: "3"
+path.data: /var/lib/wazuh-indexer
+path.logs: /var/log/wazuh-indexer
+
+plugins.security.ssl.http.pemcert_filepath: /etc/wazuh-indexer/certs/indexer.pem
+plugins.security.ssl.http.pemkey_filepath: /etc/wazuh-indexer/certs/indexer-key.pem
+plugins.security.ssl.http.pemtrustedcas_filepath: /etc/wazuh-indexer/certs/root-ca.pem
+plugins.security.ssl.transport.pemcert_filepath: /etc/wazuh-indexer/certs/indexer.pem
+plugins.security.ssl.transport.pemkey_filepath: /etc/wazuh-indexer/certs/indexer-key.pem
+plugins.security.ssl.transport.pemtrustedcas_filepath: /etc/wazuh-indexer/certs/root-ca.pem
+plugins.security.ssl.http.enabled: true
+plugins.security.ssl.transport.enforce_hostname_verification: false
+plugins.security.ssl.transport.resolve_hostname: false
+
+plugins.security.authcz.admin_dn:
+- "CN=admin,OU=Wazuh,O=Wazuh,L=California,C=US"
+plugins.security.check_snapshot_restore_write_privileges: true
+plugins.security.enable_snapshot_restore_privilege: true
+plugins.security.nodes_dn:
+- "CN=node-1,OU=Wazuh,O=Wazuh,L=California,C=US"
+#- "CN=node-2,OU=Wazuh,O=Wazuh,L=California,C=US"
+#- "CN=node-3,OU=Wazuh,O=Wazuh,L=California,C=US"
+plugins.security.restapi.roles_enabled:
+- "all_access"
+- "security_rest_api_access"
+
+plugins.security.system_indices.enabled: true
+plugins.security.system_indices.indices: [".plugins-ml-model", ".plugins-ml-task", ".opendistro-alerting-config", ".opendistro-alerting-alert*", ".opendistro-anomaly-results*", ".opendistro-anomaly-detector*">
+### Option to allow Filebeat-oss 7.10.2 to work ###
+compatibility.override_main_response_version: true
+EOF
+
+sudo cp ./opensearch.yml /etc/wazuh-indexer/opensearch.yml
 
 # Indexer HTTPS
 NODE_NAME=node-1
