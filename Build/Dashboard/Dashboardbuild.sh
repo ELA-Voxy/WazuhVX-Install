@@ -1,6 +1,23 @@
+#!/bin/bash
+
+###########
+# COLORS  #
+###########
+RED="\e[31m"
+GREEN="\e[32m"
+YELLOW="\e[33m"
+CYAN="\e[36m"
+WHITE="\e[97m"
+BOLD="\e[1m"
+RESET="\e[0m"
+
 #############
 # DASHBOARD #
 #############
+
+echo -e "${CYAN}-----------------------------------------------${RESET}"
+echo -e "${BOLD}${GREEN}           BUILD WAZUH DASHBOARD VX            ${RESET}"
+echo -e "${CYAN}-----------------------------------------------${RESET}"
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
@@ -46,3 +63,5 @@ zip -r -j ./wazuh-package.zip ../wazuh-dashboard-VX/plugins/wazuh-check-updates/
 
 sudo mkdir /root/packages/
 sudo cp -r * /root/packages/
+
+sudo bash ~/WazuhVX-Install/Build/Dashboard/Debbuild.sh

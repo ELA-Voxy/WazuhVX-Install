@@ -47,8 +47,7 @@ tar -cvf ./wazuh-certificates.tar -C ./wazuh-certificates/ .
 rm -rf ./wazuh-certificates
 
 # Package needed
-apt-get install debconf adduser procps zip -y
-apt-get install gnupg apt-transport-https -y
+apt install debconf adduser procps zip gnupg apt-transport-https
 
 ###########
 # INDEXER #
