@@ -41,7 +41,7 @@ case $choice in
     ;;
   3)
     echo -e "${GREEN}[*] Dashboard Building${RESET}"
-    sudo apt install zip
+    sudo apt install zip -y
     bash Build/Dashboard/Dashboardbuild.sh
     ;;
   4)
