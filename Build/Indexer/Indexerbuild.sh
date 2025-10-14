@@ -36,3 +36,4 @@ apt install openjdk-17-jdk binutils maven debmake debhelper dh-make build-essent
 rm -rf /root/wazuh-indexer-VX/artifacts/tmp/
 bash packaging_scripts/build.sh -a x64 -d deb -n $(bash packaging_scripts/baptizer.sh -a x64 -d deb -m)
 bash packaging_scripts/assemble.sh -a x64 -d deb
+cp ./artifacts/dist/wazuh-indexer_4.13.0-0_amd64_9e4465b5104.deb $HOME/VxPackage/
