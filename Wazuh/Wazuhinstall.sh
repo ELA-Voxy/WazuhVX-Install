@@ -93,7 +93,7 @@ echo -e "${GREEN}[OK]${RESET} Certificats générés et archivés."
 ####################
 echo -e "${BOLD}${CYAN}[*] Installation des paquets requis...${RESET}"
 apt-get update -y >/dev/null 2>&1
-apt install -y debconf adduser procps zip gnupg apt-transport-https >/dev/null 2>&1
+apt install -y debconf adduser procps zip gnupg apt-transport-https dnf dpkg >/dev/null 2>&1
 echo -e "${GREEN}[OK]${RESET} Dépendances installées."
 
 ###################
