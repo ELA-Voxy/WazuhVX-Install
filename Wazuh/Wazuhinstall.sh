@@ -14,7 +14,7 @@ RESET="\e[0m"
 ###########
 # CONFIGS #
 ###########
-DEV_VERSION="4.13s"
+DEV_VERSION="4.13"
 WAZUH_VERSION="4.13.0"
 INDEXER_VERSION="4.13.0-1"
 PACKAGE_DIR="/root/VxPackage"
