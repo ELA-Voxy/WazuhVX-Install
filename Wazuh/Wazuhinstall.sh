@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -euo pipefail
-
 ##########
 # COLORS #
 ##########
@@ -16,6 +14,7 @@ RESET="\e[0m"
 ###########
 # CONFIGS #
 ###########
+DEV_VERSION="4.13s"
 WAZUH_VERSION="4.13.0"
 INDEXER_VERSION="4.13.0-1"
 PACKAGE_DIR="/root/VxPackage"
@@ -85,10 +84,10 @@ fi
 # STEP 1: DOWNLOAD TOOLS #
 ##########################
 echo -e "${BOLD}${CYAN}[*] Téléchargement des outils nécessaires...${RESET}"
-curl -sfO https://packages.wazuh.com/${WAZUH_VERSION}/wazuh-certs-tool.sh
+curl -sfO https://packages.wazuh.com/${DEV_VERSION}/wazuh-certs-tool.sh
 check_success "Échec téléchargement wazuh-certs-tool.sh"
 
-curl -sfO https://packages.wazuh.com/${WAZUH_VERSION}/config.yml
+curl -sfO https://packages.wazuh.com/${DEV_VERSION}/config.yml
 check_success "Échec téléchargement config.yml"
 
 #########################
