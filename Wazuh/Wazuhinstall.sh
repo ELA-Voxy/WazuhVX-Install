@@ -102,7 +102,7 @@ echo -e "${BOLD}${CYAN}[*] Installation de Wazuh Indexer...${RESET}"
 curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | gpg --no-default-keyring --keyring gnupg-ring:/usr/share/keyrings/wazuh.gpg --import && chmod 644 /usr/share/keyrings/wazuh.gpg
 echo "deb [signed-by=/usr/share/keyrings/wazuh.gpg] https://packages.wazuh.com/4.x/apt/ stable main" | tee -a /etc/apt/sources.list.d/wazuh.list
 apt-get update
-apt-get -y install wazuh-indexer
+apt-get install wazuh-indexer=4.13.0-1
 
 NODE_NAME=node-1
 mkdir -p /etc/wazuh-indexer/certs
@@ -126,6 +126,9 @@ else
     exit 1
 fi
 
+sed -i "s/^deb /#deb /" /etc/apt/sources.list.d/wazuh.list
+apt update
+
 ########################
 # STEP 6: CLUSTER INIT #
 ########################
@@ -136,19 +139,19 @@ echo -e "${GREEN}[OK]${RESET} Cluster initialisé."
 ###################
 # STEP 7: MANAGER #
 ###################
-# echo -e "${BOLD}${CYAN}[*] Installation du Wazuh Manager...${RESET}"
-# bash Manager/Managerinstall.sh
+echo -e "${BOLD}${CYAN}[*] Installation du Wazuh Manager...${RESET}"
+bash Manager/Managerinstall.sh
 
-#systemctl daemon-reload
-#systemctl enable wazuh-manager >/dev/null 2>&1
-#systemctl start wazuh-manager
+systemctl daemon-reload
+systemctl enable wazuh-manager >/dev/null 2>&1
+systemctl start wazuh-manager
 
-#if systemctl is-active --quiet wazuh-manager; then
-#    echo -e "${GREEN}[OK]${RESET} Service ${YELLOW}wazuh-manager${RESET} démarré avec succès."
-#else
-#    echo -e "${RED}[ERREUR]${RESET} Le service ${YELLOW}wazuh-manager${RESET} ne s’est pas lancé correctement."
-#    exit 1
-#fi
+if systemctl is-active --quiet wazuh-manager; then
+    echo -e "${GREEN}[OK]${RESET} Service ${YELLOW}wazuh-manager${RESET} démarré avec succès."
+else
+    echo -e "${RED}[ERREUR]${RESET} Le service ${YELLOW}wazuh-manager${RESET} ne s’est pas lancé correctement."
+    exit 1
+fi
 
 ####################
 # STEP 8: FILEBEAT #
