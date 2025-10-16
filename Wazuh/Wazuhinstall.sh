@@ -29,7 +29,6 @@ if [ ! -d "$PACKAGE_DIR" ]; then
 fi
 
 REQUIRED_FILES=(
-    "wazuh-indexer-min_4.13.0_amd64.deb"
     "wazuh-manager_4.13.0-wazuhvoxy_amd64_2f1a131.deb"
     "wazuh-manager-dbg_4.13.0-wazuhvoxy_amd64_2f1a131.deb"
     "wazuh-dashboard_4.13.0-1_amd64_20fe390198-1eb4245ad-5857492.deb"
@@ -100,7 +99,10 @@ echo -e "${GREEN}[OK]${RESET} Dépendances installées."
 # STEP 5: INDEXER #
 ###################
 echo -e "${BOLD}${CYAN}[*] Installation de Wazuh Indexer...${RESET}"
-apt install -y ${PACKAGE_DIR}/wazuh-indexer-min_4.13.0_amd64.deb >/dev/null 2>&1
+curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | gpg --no-default-keyring --keyring gnupg-ring:/usr/share/keyrings/wazuh.gpg --import && chmod 644 /usr/share/keyrings/wazuh.gpg
+echo "deb [signed-by=/usr/share/keyrings/wazuh.gpg] https://packages.wazuh.com/4.x/apt/ stable main" | tee -a /etc/apt/sources.list.d/wazuh.list
+apt-get update
+apt-get -y install wazuh-indexer
 
 NODE_NAME=node-1
 mkdir -p /etc/wazuh-indexer/certs
@@ -134,7 +136,7 @@ echo -e "${GREEN}[OK]${RESET} Cluster initialisé."
 ###################
 # STEP 7: MANAGER #
 ###################
-echo -e "${BOLD}${CYAN}[*] Installation du Wazuh Manager...${RESET}"
+# echo -e "${BOLD}${CYAN}[*] Installation du Wazuh Manager...${RESET}"
 # bash Manager/Managerinstall.sh
 
 #systemctl daemon-reload

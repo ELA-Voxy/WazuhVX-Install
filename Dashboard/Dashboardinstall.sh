@@ -45,4 +45,4 @@ zip -r -j ./security-package.zip ../wazuh-dashboard-VX/plugins/wazuh-security-da
 zip -r -j ./wazuh-package.zip ../wazuh-dashboard-VX/plugins/wazuh-check-updates/build/wazuhCheckUpdates-2.*.*.zip ../wazuh-dashboard-VX/plugins/main/build/wazuh-2.*.*.zip ../wazuh-dashboard-VX/plugins/wazuh-core/build/wazuhCore-2.*.*.zip
 ls
 
-sudo bash ~/WazuhVX-Install//Dashboard/Debpackage.sh
+sudo bash ~/WazuhVX-Install/Dashboard/Debpackage.sh
