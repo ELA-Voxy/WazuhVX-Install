@@ -163,10 +163,6 @@ else
     exit 1
 fi
 
-# Sécurité du dépôt
-sed -i "s/^deb /#deb /" /etc/apt/sources.list.d/wazuh.list
-apt-get update -y >/dev/null
-
 ########################
 # STEP 6: CLUSTER INIT #
 ########################
@@ -253,6 +249,9 @@ done
 # STEP 11: CLEANUP #
 ####################
 echo -e "${BOLD}${YELLOW}[CLEANUP]${RESET} Suppression des fichiers temporaires..."
+# Sécurité du dépôt
+sed -i "s/^deb /#deb /" /etc/apt/sources.list.d/wazuh.list
+apt-get update -y >/dev/null
 rm -f config.yml wazuh-template.json ${CERT_ARCHIVE}
 
 echo -e "${CYAN}-------------------------------------------------------------${RESET}"
