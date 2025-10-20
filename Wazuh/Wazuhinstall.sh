@@ -47,7 +47,7 @@ echo -e "${CYAN}-------------------------------------------------------------${R
 ##############################
 # PRECHECK: Required tools   #
 ##############################
-require_cmds curl gpg tar dpkg apt systemctl hostname awk
+require_cmds curl gpg tar dpkg apt systemctl hostname awk sed
 
 #######################
 # PRECHECK: VxPackage #
@@ -186,6 +186,49 @@ else
     echo -e "${RED}[ERREUR]${RESET} Échec démarrage wazuh-manager."
     exit 1
 fi
+
+#########################################
+# STEP 7.1: MANAGER CONFIG (Indexer + agent.conf)
+#########################################
+echo -e "${BOLD}${CYAN}[*] Configuration du connecteur Indexer et de l'agent.conf...${RESET}"
+
+OSSEC_CONF="/var/ossec/etc/ossec.conf"
+if [ -f "$OSSEC_CONF" ]; then
+    cp -n "$OSSEC_CONF" "${OSSEC_CONF}.bak.$(date +%s)"
+    # Remplace l'adresse 0.0.0.0:9200 par l'IP détectée
+    sed -i "s#https://0\.0\.0\.0:9200#https://${SERVER_IP}:9200#g" "$OSSEC_CONF"
+    echo -e "${GREEN}[OK]${RESET} ossec.conf mis à jour avec l'indexer https://${SERVER_IP}:9200"
+else
+    echo -e "${YELLOW}[WARN]${RESET} ossec.conf introuvable, saut de la mise à jour."
+fi
+
+# Active Syscollector pour tous les agents via la conf partagée
+AGENT_SHARED_DIR="/var/ossec/etc/shared/default"
+mkdir -p "$AGENT_SHARED_DIR"
+cat > "$AGENT_SHARED_DIR/agent.conf" <<'EOF'
+<agent_config>
+  <wodle name="syscollector">
+    <disabled>no</disabled>
+    <scan_on_start>yes</scan_on_start>
+    <interval>1h</interval>
+    <hardware>yes</hardware>
+    <os>yes</os>
+    <network>yes</network>
+    <packages>yes</packages>
+    <ports all="yes">yes</ports>
+    <processes>yes</processes>
+    <synchronization>
+      <max_eps>10</max_eps>
+    </synchronization>
+  </wodle>
+</agent_config>
+EOF
+check_success "Échec d'écriture de /var/ossec/etc/shared/default/agent.conf"
+echo -e "${GREEN}[OK]${RESET} agent.conf partagé créé (Syscollector activé)."
+
+# Redémarre le manager pour prendre en compte les modifs
+systemctl restart wazuh-manager
+check_success "Redémarrage du wazuh-manager après configuration"
 
 ####################
 # STEP 8: FILEBEAT #
