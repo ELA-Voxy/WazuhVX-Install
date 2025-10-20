@@ -20,7 +20,8 @@ echo -e "${BOLD}${WHITE}                Made By ELA                  ${RESET}"
 echo -e "${CYAN}-----------------------------------------------${RESET}\n"
 
 # Confirmation
-read -p "$(echo -e ${BOLD}${YELLOW}⚠️  Cette opération va régénérer tous les mots de passe Wazuh. Continuer ? (o/n): ${RESET})" confirm
+echo -ne "${BOLD}${YELLOW}⚠️  Cette opération va régénérer tous les mots de passe Wazuh. Continuer ? (o/n): ${RESET} "
+read confirm
 
 if [[ "$confirm" != "o" && "$confirm" != "O" ]]; then
   echo -e "${RED}❌ Opération annulée par l'utilisateur.${RESET}"
