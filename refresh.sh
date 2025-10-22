@@ -43,7 +43,7 @@ chmod +x wazuh-passwords-tool.sh
 
 # Exécuter l'outil de mise à jour
 echo -e "${GREEN}[*] Exécution de l'outil de rafraîchissement des mots de passe...${RESET}"
-sudo ./wazuh-passwords-tool.sh -a
+sudo bash wazuh-passwords-tool.sh -a -A -au wazuh -ap wazuh
 
 # Nettoyage (optionnel)
 # rm -f wazuh-passwords-tool.sh
