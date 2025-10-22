@@ -28,6 +28,13 @@ if [[ "$confirm" != "o" && "$confirm" != "O" ]]; then
   exit 0
 fi
 
+# Demande des identifiants API
+echo -ne "${BOLD}${CYAN}👉 Entrez le nom d'utilisateur de l'API Wazuh : ${RESET}"
+read api_user
+echo -ne "${BOLD}${CYAN}🔑 Entrez le mot de passe de l'API Wazuh : ${RESET}"
+read -s api_pass
+echo -e "\n"
+
 # Télécharger le script officiel
 echo -e "${BLUE}[*] Téléchargement de l'outil de mots de passe...${RESET}"
 curl -so wazuh-passwords-tool.sh https://packages.wazuh.com/4.13/wazuh-passwords-tool.sh
@@ -43,7 +50,7 @@ chmod +x wazuh-passwords-tool.sh
 
 # Exécuter l'outil de mise à jour
 echo -e "${GREEN}[*] Exécution de l'outil de rafraîchissement des mots de passe...${RESET}"
-sudo bash wazuh-passwords-tool.sh -a -A -au wazuh -ap wazuh
+sudo bash wazuh-passwords-tool.sh -a -A -au "$api_user" -ap "$api_pass"
 
 # Nettoyage (optionnel)
 # rm -f wazuh-passwords-tool.sh
