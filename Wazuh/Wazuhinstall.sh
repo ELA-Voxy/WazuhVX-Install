@@ -93,8 +93,17 @@ check_success "Échec téléchargement config.yml"
 #########################
 # STEP 2: CONFIGURATION #
 #########################
+# IP auto-détectée
 SERVER_IP=$(ip route get 1 | awk '{print $7; exit}')
 echo -e "${GREEN}[OK]${RESET} Adresse IP détectée : ${YELLOW}${SERVER_IP}${RESET}"
+
+# Entrée = garder l'IP ; sinon l'utilisateur peut mettre un FQDN ou une autre IP
+read -r -p "Adresse du serveur (FQDN ou IP) [${SERVER_IP}] : " SERVER_ADDR
+SERVER_ADDR=${SERVER_ADDR:-$SERVER_IP}
+
+# (option) si le reste du script attend SERVER_IP, on aligne :
+SERVER_IP="$SERVER_ADDR"
+echo -e "${GREEN}[OK]${RESET} Adresse retenue : ${YELLOW}${SERVER_IP}${RESET}"
 
 cat > config.yml <<EOF
 nodes:
