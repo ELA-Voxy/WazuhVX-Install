@@ -5,7 +5,7 @@ cp -r ../packages/ ~/
 cd ../wazuh-dashboard-VX/dev-tools/build-packages/
 
 # Build the dashboard .deb package
-./build-packages.sh --commit-sha 20fe390198-1eb4245ad-5857492 -r 1 --deb \
+./build-packages.sh --commit-sha f1866b8bd8-c099f11fe-34ec8c2 -r 1 --deb \
   -a file://$HOME/packages/wazuh-package.zip \
   -s file://$HOME/packages/security-package.zip \
   -b file://$HOME/packages/dashboard-package.zip

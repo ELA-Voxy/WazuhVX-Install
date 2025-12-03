@@ -20,7 +20,7 @@ echo -e "${BOLD}${GREEN}            BUILD WAZUH MANAGER VX             ${RESET}"
 echo -e "${CYAN}-----------------------------------------------${RESET}"
 
 cd ~/
-git clone https://github.com/ELA-Voxy/wazuh-VX.git && cd wazuh-VX && git checkout v4.13.0
+git clone https://github.com/ELA-Voxy/wazuh-VX.git && cd wazuh-VX && git checkout hotfix-v4.14.1
 
 ###########
 # INSTALL #
