@@ -32,8 +32,8 @@ echo "deb-src http://archive.ubuntu.com/ubuntu $(lsb_release -cs) main" >> /etc/
 cd packages/
 sudo ./generate_package.sh -t manager -a amd64 -r wazuhvoxy --system deb
 cd output/
-sudo chmod a+rwx wazuh-manager_4.13.0-wazuhvoxy_amd64_2f1a131.deb
-sudo chmod a+rwx wazuh-manager-dbg_4.13.0-wazuhvoxy_amd64_2f1a131.deb
+sudo chmod a+rwx wazuh-manager_4.14.1-wazuhvoxy_amd64_578b501.deb
+sudo chmod a+rwx wazuh-manager-dbg_4.14.1-wazuhvoxy_amd64_578b501.deb
 ls -all
-cp wazuh-manager_4.13.0-wazuhvoxy_amd64_2f1a131.deb $HOME/VxPackage/
-cp wazuh-manager-dbg_4.13.0-wazuhvoxy_amd64_2f1a131.deb $HOME/VxPackage/
+cp wazuh-manager_4.14.1-wazuhvoxy_amd64_578b501.deb $HOME/VxPackage/
+cp wazuh-manager-dbg_4.14.1-wazuhvoxy_amd64_578b501.deb $HOME/VxPackage/

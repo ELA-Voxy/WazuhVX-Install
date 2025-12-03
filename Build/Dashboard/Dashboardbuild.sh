@@ -46,7 +46,7 @@ else
     export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
     
-    export OPENSEARCH_DASHBOARDS_VERSION="2.19.2"
+    export OPENSEARCH_DASHBOARDS_VERSION="2.19.3"
 
     git clone -b hotfix-v4.14.1 https://github.com/ELA-Voxy/wazuh-dashboard-VX.git && cd wazuh-dashboard-VX/
     nvm install $(cat .nvmrc)
